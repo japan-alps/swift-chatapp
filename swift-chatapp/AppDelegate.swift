@@ -7,15 +7,50 @@
 //
 
 import UIKit
+import SocketIOClientSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    var socket : SocketIOClient!
+
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let url = NSURL(string: "http://ec2-54-199-182-211.ap-northeast-1.compute.amazonaws.com:3000")!
+        socket = SocketIOClient(socketURL: url)
+        socket.on("connect") {data in
+            print("connected!")
+            
+            let raw_image = UIImage(named: "image.jpeg")!
+            let png_image = UIImagePNGRepresentation(raw_image)
+            let image = png_image!.base64EncodedStringWithOptions(.Encoding64CharacterLineLength)
+            self.socket.emit("user_from_client", "hello")
+            
+            let URLString = NSBundle.mainBundle().pathForResource("movie", ofType: "m4v")!
+            let URL : NSURL = NSURL.fileURLWithPath(URLString)
+            let raw_video = NSData(contentsOfURL: URL)
+            let video = raw_video!.base64EncodedStringWithOptions(.Encoding64CharacterLineLength)
+            
+            print(image)
+            
+            self.socket.emit("img_from_client",image)
+            self.socket.emit("movie_from_client",video)
+        }
+        
+        socket.on("disconnect"){ data in
+            print("disconnected!")
+        }
+        
+        socket.on("user_from_server"){ (data,ack) in
+            print(data)
+        }
+        
+        socket.connect()
+        
         return true
     }
 
