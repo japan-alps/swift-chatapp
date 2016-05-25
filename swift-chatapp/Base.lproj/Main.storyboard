@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -16,7 +17,38 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6hQ-iP-hyn">
+                                <rect key="frame" x="30" y="30" width="40" height="30"/>
+                                <state key="normal" title="JSON"/>
+                                <connections>
+                                    <action selector="pushJSONButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7S9-eW-3wf"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LrM-An-6aH">
+                                <rect key="frame" x="30" y="70" width="42" height="30"/>
+                                <state key="normal" title="Image"/>
+                                <connections>
+                                    <action selector="pushImageButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dpm-m6-7S2"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kfz-3y-YfD">
+                                <rect key="frame" x="30" y="110" width="40" height="30"/>
+                                <state key="normal" title="Video"/>
+                                <connections>
+                                    <action selector="pushVideoButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JGr-gt-jcU"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="LrM-An-6aH" firstAttribute="top" secondItem="6hQ-iP-hyn" secondAttribute="bottom" constant="10" id="Ded-Oz-GIn"/>
+                            <constraint firstItem="Kfz-3y-YfD" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="KKE-HG-nRb"/>
+                            <constraint firstItem="6hQ-iP-hyn" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="10" id="Laa-bx-bhf"/>
+                            <constraint firstItem="Kfz-3y-YfD" firstAttribute="top" secondItem="LrM-An-6aH" secondAttribute="bottom" constant="10" id="OHW-wx-sVR"/>
+                            <constraint firstItem="LrM-An-6aH" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="UA3-6n-QnZ"/>
+                            <constraint firstItem="6hQ-iP-hyn" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="cCt-sR-V9m"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

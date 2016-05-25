@@ -9,11 +9,11 @@
 import UIKit
 import SocketIOClientSwift
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
     var socket : SocketIOClient!
 
 
@@ -24,21 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         socket = SocketIOClient(socketURL: url)
         socket.on("connect") {data in
             print("connected!")
-            
-            let raw_image = UIImage(named: "image.jpeg")!
-            let png_image = UIImagePNGRepresentation(raw_image)
-            let image = png_image!.base64EncodedStringWithOptions(.Encoding64CharacterLineLength)
             self.socket.emit("user_from_client", "hello")
-            
-            let URLString = NSBundle.mainBundle().pathForResource("movie", ofType: "m4v")!
-            let URL : NSURL = NSURL.fileURLWithPath(URLString)
-            let raw_video = NSData(contentsOfURL: URL)
-            let video = raw_video!.base64EncodedStringWithOptions(.Encoding64CharacterLineLength)
-            
-            print(image)
-            
-            self.socket.emit("img_from_client",image)
-            self.socket.emit("movie_from_client",video)
         }
         
         socket.on("disconnect"){ data in
@@ -49,8 +35,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print(data)
         }
         
-        socket.connect()
+        socket.on("json_from_server"){ (data,ack) in
+            let json = JSON(data)
+            if let text = json[0]["name"].string {
+                print(text)
+            }
+            if let text = json[0]["desc"].string {
+                print(text)
+            }
+        }
         
+        socket.connect()
         return true
     }
 
